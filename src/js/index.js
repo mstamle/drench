@@ -1,5 +1,6 @@
 // Generate boards
     // Length and Width of board
+    var $canvas = $('#canvas');
     var boardLength = 14;
     var boardWidth =14;
 
@@ -13,6 +14,10 @@
     function generateBoard(){
     // array board
     var board = []
+    //clear board if needed
+    for(var i=0;i<board.length;i++){
+        board.pop();
+    };
     // 6 colors
     var colors = ['red','green','blue','brown','gray','black'];
     var x_s = ['100', '150', '200', '250', '300', '350', '400', '450', '500', '550', '600', '650', '700','750'];
@@ -26,11 +31,28 @@
                     });
                 }
             }
+
     return board;
+    //display board
+    //     var $newdiv1 = $( "<div id='object1'></div>" ),
+    //   newdiv2 = document.createElement( "div" ),
+    //   existingdiv1 = document.getElementById( "foo" );
+
+    //$( "body" ).append( $newdiv1, [ newdiv2, existingdiv1 ] );
+
+
+
+    };
+
+    for(var i=0;i<board.length;i++){
+        $canvas.append('<div class="box ' + board[i].color + ' ' + 'x' + board[i].x + ' ' + 'y' + board[i].y + '"></div>');
+
     };
 
     $('reset').on('click',generateBoard);
 // Array of drenched
+    var drenched = [];
+    drenched.push(board[0]);
 
 
 
@@ -54,22 +76,3 @@
 
 
 
-function shuffleDeck(deck) {
-    var counter = deck.length;
-
-    // While there are elements in the array
-    while (counter > 0) {
-        // Pick a random indexx§
-        var index = Math.floor(Math.random() * counter);
-
-        // Decrease counter by 1
-        counter--;
-
-        // And swap the last element with it
-        var temp = deck[counter];
-        deck[counter] = deck[index];
-        deck[index] = temp;
-    }
-
-    return deck;
-}

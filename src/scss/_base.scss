@@ -1,4 +1,152 @@
 .box {
+    display: block;
+    position: absolute;
+    height: 50px;
+    width: 50px;
     border: white solid 2px;
+    margin: 0;
+
 }
 
+#canvas {
+    display: block;
+    position: absolute;
+    left: 100px;
+    top: 100px;
+    width: 800px;
+    height: 800px;
+    background-color: burlywood;
+}
+
+.red {
+    background-color: red;
+}
+
+.green  {
+    background-color: green;
+}
+.blue {
+    background-color: navy;
+}
+.brown {
+    background-color: brown;
+}
+.gray {
+    background-color: gray;
+}
+.black {
+    background-color: black;
+}
+
+.x100 {
+    left: 100px;
+}
+
+.x150 {
+    left: 150px;
+}
+
+.x200 {
+    left: 200px;
+}
+
+.x250 {
+    left: 250px;
+}
+
+.x300 {
+    left: 300px;
+}
+
+.x350 {
+    left: 350px;
+}
+
+.x400 {
+    left: 400px;
+}
+
+.x450 {
+    left: 450px;
+}
+
+.x500 {
+    left: 500px;
+}
+
+.x550 {
+    left: 550px;
+}
+
+.x600 {
+    left: 600px;
+}
+
+.x650 {
+    left: 650px;
+}
+
+.x700 {
+    left: 700px;
+}
+
+.x750 {
+    left: 750px;
+}
+
+
+.y100 {
+    top: 100px;
+}
+
+.y150 {
+    top: 150px;
+}
+
+.y200 {
+    top: 200px;
+}
+
+.y250 {
+    top: 250px;
+}
+
+.y300 {
+    top: 300px;
+}
+
+.y350 {
+    top: 350px;
+}
+
+.y400 {
+    top: 400px;
+}
+
+.y450 {
+    top: 450px;
+}
+
+.y500 {
+    top: 500px;
+}
+
+.y550 {
+    top: 550px;
+}
+
+.y600 {
+    top: 600px;
+}
+
+.y650 {
+    top: 650px;
+}
+
+.y700 {
+    top: 700px;
+}
+
+.y750 {
+    top: 750px;
+}
