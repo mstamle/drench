@@ -5,7 +5,10 @@
     var boardWidth =14;
 
     // Array of 14x14 squares
-    var board = generateBoard();
+
+    var board;
+    generateAndDisplayBoard();
+    // = generateBoard();
 
     function ranInt(num){
         return Math.floor((Math.random() * num)+1);
@@ -13,11 +16,7 @@
 
     function generateBoard(){
     // array board
-    var board = []
-    //clear board if needed
-    for(var i=0;i<board.length;i++){
-        board.pop();
-    };
+    var board = [];
     // 6 colors
     var colors = ['color1','color2','color3','color4','color5','color6'];
     var x_s = ['100', '150', '200', '250', '300', '350', '400', '450', '500', '550', '600', '650', '700','750'];
@@ -44,12 +43,21 @@
 
     };
 
-    for(var i=0;i<board.length;i++){
-        $canvas.append('<div class="box ' + board[i].color + ' ' + 'x' + board[i].x + ' ' + 'y' + board[i].y + '"></div>');
+    function displayBoard() {
 
+        for(var i=0;i<board.length;i++){
+            $canvas.append('<div class="box ' + board[i].color + ' ' + 'x' + board[i].x + ' ' + 'y' + board[i].y + '"></div>');
+
+        };
     };
 
-    $('reset').on('click',generateBoard);
+    function generateAndDisplayBoard() {
+        console.log('fn called')
+        board = generateBoard();
+        displayBoard();
+    }
+
+    $('#reset').on('click', generateAndDisplayBoard);
 // Array of drenched
     var drenched = [];
     drenched.push(board[0]);
