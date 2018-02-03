@@ -5,7 +5,40 @@
     width: 50px;
     border: white solid 2px;
     margin: 0;
+}
 
+#c1,
+#c2,
+#c3,
+#c4,
+#c5,
+#c6 {
+    left: 25px;
+    position: absolute;
+}
+
+#c1 {
+    top: 125px;
+}
+
+#c2 {
+    top: 175px;
+}
+
+#c3 {
+    top: 225px;
+}
+
+#c4 {
+    top: 275px;
+}
+
+#c5 {
+    top: 325px;
+}
+
+#c6 {
+    top: 375px;
 }
 
 #canvas {
@@ -18,23 +51,23 @@
     background-color: burlywood;
 }
 
-.red {
+.color1 {
     background-color: red;
 }
 
-.green  {
+.color2  {
     background-color: green;
 }
-.blue {
+.color3 {
     background-color: navy;
 }
-.brown {
+.color4 {
     background-color: brown;
 }
-.gray {
+.color5 {
     background-color: gray;
 }
-.black {
+.color6 {
     background-color: black;
 }
 

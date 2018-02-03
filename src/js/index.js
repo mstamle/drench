@@ -19,13 +19,13 @@
         board.pop();
     };
     // 6 colors
-    var colors = ['red','green','blue','brown','gray','black'];
+    var colors = ['color1','color2','color3','color4','color5','color6'];
     var x_s = ['100', '150', '200', '250', '300', '350', '400', '450', '500', '550', '600', '650', '700','750'];
     var y_s = ['100', '150', '200', '250', '300', '350', '400', '450', '500', '550', '600', '650', '700','750'];
             for(var w = 0; w < x_s.length; w++){
                 for(var h = 0; h < y_s.length; h++){
                     board.push({
-                        'color': colors[ranInt(5)],
+                        'color': colors[ranInt(6)-1],
                         'x':     x_s[w],
                         'y':     y_s[h],
                     });
