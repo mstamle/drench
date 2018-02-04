@@ -1,8 +1,8 @@
 // Generate boards
     // Length and Width of board
     var $canvas = $('#canvas');
-    var boardLength = 14;
-    var boardWidth =14;
+    var boardLength = 10;
+    var boardWidth =10;
     var $reset = $('#reset');
     var $c1 = $('#c1');
     var $c2 = $('#c2');
@@ -12,43 +12,133 @@
     var $c6 = $('#c6');
 
     var row =[];
+    var board = [];
+    generateAndDisplayBoard();
 
-
-
-    // generateAndDisplayBoard();
-    // generateBoard();
-
+    // Function to randomize colors
     function ranInt(num){
         return Math.floor((Math.random() * num)+1);
     };
 
-    function generateRow(h){
+    function generateRow(givenh){
         var colors = ['color1','color2','color3','color4','color5','color6'];
-        var row = [];
-        // var h = 0;
+        row = [];
+        var h = givenh;
         for(var w = 0; w < boardWidth; w++){
             row.push({
                 'color': colors[ranInt(6)-1],
-                // 'x':     w*50 + 100,
-                // 'y':     h*50 + 100,
+                'x':     w*50,
+                'y':     h*50,
             });
         };
         return row;
     };
 
-    function displayRow(){
-        for(var i=0;i<row.length;i++){
-            $canvas.append('<div class="box ' + row[i].color +'"></div>');
+    function displayRow(row){
+        for(var i=0;i< row.length ;i++){
+            $canvas.append('<div class="box ' + row[i].color + ' ' + 'x' + row[i].x + ' ' + 'y' + row[i].y + '"></div>');
             };
     };
 
-    function generateAndDisplayRow(){
-        console.log('fn called')
-        row = generateRow();
-        displayRow();
+    // function generateAndDisplayRow(givenrow){
+    //     console.log('fn called');
+    //     row = generateRow(givenrow);
+    //     displayRow(givenrow);
+    // };
+
+    // $reset.on('click',generateAndDisplayRow);
+
+    function generateBoard(){
+        board = [];
+        for(var h = 0; h < boardLength; h++){
+            row = generateRow(h);
+            board.push(row);
+        };
+        return board;
     };
 
-    $reset.on('click',generateAndDisplayRow);
+    function displayBoard(){
+        $canvas.html(' ');
+        for (var h=0; h < board.length; h++){
+            displayRow(board[h]);
+        };
+    };
+
+    function generateAndDisplayBoard(){
+        console.log('fn called');
+        board = generateBoard();
+        displayBoard();
+
+    }
+
+    $reset.on('click',generateAndDisplayBoard);
+
+    // Array of drenched
+        var drenched = [];
+
+        // Turn the first object of the first array in board to drenched
+
+        function firstdrench(clickedColor){
+            console.log(clickedColor);
+            var currentSquare = board[0].shift();
+            currentSquare.color = clickedColor;
+            drenched.push(currentSquare);
+            board[0].unshift(currentSquare);
+            displayBoard();
+        }
+
+
+
+        $c1.on('click',function drench(clickedColor){
+            clickedColor = $c1.html();
+            firstdrench(clickedColor);
+        });
+        $c2.on('click',function drench(clickedColor){
+            clickedColor = $c2.html();
+            firstdrench(clickedColor);
+        });
+        $c3.on('click',function drench(clickedColor){
+            clickedColor = $c3.html();
+            firstdrench(clickedColor);
+        });
+        $c4.on('click',function drench(clickedColor){
+            clickedColor = $c4.html();
+            firstdrench(clickedColor);
+        });
+        $c5.on('click',function drench(clickedColor){
+            clickedColor = $c5.html();
+            firstdrench(clickedColor);
+        });
+        $c6.on('click',function drench(clickedColor){
+            clickedColor = $c6.html();
+            firstdrench(clickedColor);
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //     function generateBoard(){
@@ -100,10 +190,6 @@
 //     // $reset.on('click', generateAndDisplayBoard);
 
 
-// // // Array of drenched
-// //     var drenched = [];
-// //     var currentSquare = board.shift();
-// //     drenched.push(currentSquare);
 
 // // Button event
 

@@ -1,18 +1,25 @@
 body {
     background-color: #232323;
-    color: #FFC65D;
+    color: rgba(0,0,0,0);
+
 }
 
 h1 {
     text-align: center;
-    margin: .4em;
+    margin-top: 1em;
+    color: #FFC65D;
 }
 .box {
-    display: flex;
+    position: absolute;
+    display: block;
     height: 50px;
     width: 50px;
     border: white solid 2px;
     margin: 0;
+}
+
+button {
+    margin-left: 200px;
 }
 
 #c1,
@@ -21,43 +28,43 @@ h1 {
 #c4,
 #c5,
 #c6 {
-    left: 25px;
+    left: 50px;
     position: absolute;
     border-radius: 50%;
 }
 
 #c1 {
-    top: 125px;
+    top: 150px;
 }
 
 #c2 {
-    top: 180px;
+    top: 205px;
 }
 
 #c3 {
-    top: 235px;
+    top: 260px;
 }
 
 #c4 {
-    top: 290px;
+    top: 315px;
 }
 
 #c5 {
-    top: 345px;
+    top: 370px;
 }
 
 #c6 {
-    top: 400px;
+    top: 425px;
 }
 
 #canvas {
-    display: flex;
+    display: block;
     position: absolute;
-    left: 100px;
-    top: 100px;
+    left: 200px;
+    top: 250px;
     width: 800px;
     height: 800px;
-    background-color: #232323;
+    background-color: transparent;
 }
 
 .color1 {
@@ -78,6 +85,14 @@ h1 {
 }
 .color6 {
     background-color: #404040;
+}
+
+.x0 {
+    left: 0px;
+}
+
+.x50 {
+    left: 50px;
 }
 
 .x100 {
@@ -136,6 +151,13 @@ h1 {
     left: 750px;
 }
 
+.y0 {
+    top: 0px;
+}
+
+.y50 {
+    top: 50px;
+}
 
 .y100 {
     top: 100px;
