@@ -2,8 +2,8 @@
     // Length and Width of board
     // Game preparation:
         var $canvas = $('#canvas');
-        var boardLength = 10;
-        var boardWidth =10;
+        var boardLength = 4;
+        var boardWidth =4;
         var $reset = $('#reset');
         var $c1 = $('#c1');
         var $c2 = $('#c2');
@@ -35,7 +35,6 @@
         };
         return row;
     };
-
     function displayRow(row){
         for(var i=0;i< row.length ;i++){
             $canvas.append('<div class="box ' + row[i].color + ' ' + 'x' + row[i].x + ' ' + 'y' + row[i].y + '"></div>');
@@ -59,14 +58,12 @@
         };
         return board;
     };
-
     function displayBoard(){
         $canvas.html(' ');
         for (var h=0; h < board.length; h++){
             displayRow(board[h]);
         };
     };
-
     function generateAndDisplayBoard(){
         console.log('fn called');
         board = generateBoard();
@@ -74,83 +71,106 @@
         board[0][0].captured = true;
 
     }
-
     $reset.on('click',generateAndDisplayBoard);
 
-    // Array of drenched, I keep this to check drenched.length, if equal
-    // to boardlength * boardwidth then game is won.
-        var drenched = initiateDrenched();
+    // Through out the whole board, check all the square, if captured is true
+    // then go through all 4 adjacent squares to it, if any has the same color
+    // assign captured to true.
 
-        function initiateDrenched(){
-            var drenched = [];
-            drenched.push(board[0].[0]);
-        };
+    function capture(clickedColor){
+        //Going through each squares from 1,0 to 13,0
+        for(var l = 1; w < boardLength; l++){
+            currentSquare = board[l][0];
+            if(
+                (currentSquare.color === board[0][0].color)
+                &&( board[l-1][0].captured == true)
+            )
+                {
+                currentSquare.captured = true;
+                }
+        }
+        //Going through each squares from 0,1 to 0,13
+        for(var w = 1; w < boardWidth; w++){
+            currentSquare = board[0][w];
+            if(
+                (currentSquare.color === board[0][0].color)
+                &&( board[l][w-1].captured == true)
+            )
+                {
+                currentSquare.captured = true;
+                }
+        }
 
-        function displayDrenched(){
-            for(var i=0; i<drenched.length; i++){
-                $canvas.append('<div class="box ' + drenched[i].color + ' ' + 'x' + drenched[i].x + ' ' + 'y' + drenched[i].y + '"></div>');
+        //Going through each squares from 1,1 to 13,13
+        for(var l = 1; l < boardLength; l++){
+            //Inside row going through each object
+            for(var w = 1; w < boardWidth; w++){
+                currentSquare = board[l][w];
+                if(
+                    (currentSquare.color === board[0][0].color)
+
+                    &&(     ( board[l-1][w].captured == true)
+                        ||  ( board[l][w-1].captured == true)
+                )
+            )
+                {
+                currentSquare.captured = true;
+                }
             }
-        };
+        }
+    };
 
-        // Turn the first object of the first array in board to drenched
+    function paint(clickedColor){
+        for(var l = 0; l < boardLength; l++){
+            //Inside row going through each object
+            for(var w = 0; w < boardWidth; w++){
+                currentSquare = board[l][w];
+                if(currentSquare.captured = true){
+                    currentSquare.color = clickedColor;
+                }
 
-        function firstdrench(clickedColor){
-            console.log(clickedColor);
-            var currentSquare = board[0].shift();
-            currentSquare.color = clickedColor;
-            currentSquare.x = 0;
-            currentSquare.y = 0;
-            currentSquare.captured = true;
-            drenched.push(currentSquare);
-            // board[0].unshift(currentSquare);
-        };
+            }
+        }
+    };
 
-        // Through out the whole board, check all the square, if captured is true
-        // then go through all 4 adjacent squares to it, if any has the same color
-        // assign captured to true.
+function wholedrench(clickedColor){
+    capture();
+    paint(clickedColor);
+    displayBoard();
+    // checkIfWon();
+    // checkClicks();
+};
 
-        // function seconddrench(clickedColor){
-        //     var top =
-        //     //check top
-        //     //check right
-        //     //check bottom
-        //     //check left
 
 
-        // };
+$c1.on('click',function drench(clickedColor){
+    clickedColor = $c1.html();
+    wholedrench(clickedColor);
+});
+$c2.on('click',function drench(clickedColor){
+    clickedColor = $c2.html();
+    wholedrench(clickedColor);
+});
+$c3.on('click',function drench(clickedColor){
+    clickedColor = $c3.html();
+    wholedrench(clickedColor);
+});
+$c4.on('click',function drench(clickedColor){
+    clickedColor = $c4.html();
+    wholedrench(clickedColor);
+});
+$c5.on('click',function drench(clickedColor){
+    clickedColor = $c5.html();
+    wholedrench(clickedColor);
+});
+$c6.on('click',function drench(clickedColor){
+    clickedColor = $c6.html();
+    wholedrench(clickedColor);
+});
 
-        function wholedrench(clickedColor){
-            firstdrench(clickedColor);
-            // seconddrench(clickedColor);
-            displayDrenched();
-        };
 
 
 
-        $c1.on('click',function drench(clickedColor){
-            clickedColor = $c1.html();
-            wholedrench(clickedColor);
-        });
-        $c2.on('click',function drench(clickedColor){
-            clickedColor = $c2.html();
-            wholedrench(clickedColor);
-        });
-        $c3.on('click',function drench(clickedColor){
-            clickedColor = $c3.html();
-            wholedrench(clickedColor);
-        });
-        $c4.on('click',function drench(clickedColor){
-            clickedColor = $c4.html();
-            wholedrench(clickedColor);
-        });
-        $c5.on('click',function drench(clickedColor){
-            clickedColor = $c5.html();
-            wholedrench(clickedColor);
-        });
-        $c6.on('click',function drench(clickedColor){
-            clickedColor = $c6.html();
-            wholedrench(clickedColor);
-        });
 
 
 
@@ -161,15 +181,39 @@
 
 
 
+//draft
 
+    // Turn the first object of the first array in board to drenched
 
+    // function firstdrench(clickedColor){
+    //     console.log(clickedColor);
+    //     var currentSquare = board[0].shift();
+    //     currentSquare.color = clickedColor;
+    //     currentSquare.x = 0;
+    //     currentSquare.y = 0;
+    //     currentSquare.captured = true;
+    //     drenched.push(currentSquare);
+    //     // board[0].unshift(currentSquare);
+    // };
 
 
 
 
 
+        // // Array of drenched, I keep this to check drenched.length, if equal
+        // // to boardlength * boardwidth then game is won.
+        //     var drenched = initiateDrenched();
 
+        //     function initiateDrenched(){
+        //         var drenched = [];
+        //         drenched.push(board[0].[0]);
+        //     };
 
+        //     function displayDrenched(){
+        //         for(var i=0; i<drenched.length; i++){
+        //             $canvas.append('<div class="box ' + drenched[i].color + ' ' + 'x' + drenched[i].x + ' ' + 'y' + drenched[i].y + '"></div>');
+        //         }
+        //     };
 
 
 
@@ -177,116 +221,114 @@
 
 
 
+    //     function generateBoard(){
+    //     // array board
+    //     // 6 colors
+    //     // asolute positions of the objects
+    //     // var x_s = ['100', '150', '200', '250', '300', '350', '400', '450', '500', '550', '600', '650', '700','750'];
+    //     // var y_s = ['100', '150', '200', '250', '300', '350', '400', '450', '500', '550', '600', '650', '700','750'];
+    //     // generate rows
+    //     // generate board
+    //     var board = [];
+    //     for(var h = 0; h < boardLength; h++){
+    //         var row = generateRow(h);
+    //         board.push(row[h]);
+    //         }
+    //     }
 
+    //     // Array of 14x14 squares
+    //     // var colors = ['color1','color2','color3','color4','color5','color6'];
+    //     // var x_s = ['100', '150', '200', '250', '300', '350', '400', '450', '500', '550', '600', '650', '700','750'];
+    //     // var y_s = ['100', '150', '200', '250', '300', '350', '400', '450', '500', '550', '600', '650', '700','750'];
+    //     //         for(var w = 0; w < x_s.length; w++){
+    //     //             for(var h = 0; h < y_s.length; h++){
+    //     //                 board.push({
+    //     //                     'color': colors[ranInt(6)-1],
+    //     //                     'x':     x_s[w],
+    //     //                     'y':     y_s[h],
+    //     //                 });
+    //     //             }
+    //     //         }
 
-//     function generateBoard(){
-//     // array board
-//     // 6 colors
-//     // asolute positions of the objects
-//     // var x_s = ['100', '150', '200', '250', '300', '350', '400', '450', '500', '550', '600', '650', '700','750'];
-//     // var y_s = ['100', '150', '200', '250', '300', '350', '400', '450', '500', '550', '600', '650', '700','750'];
-//     // generate rows
-//     // generate board
-//     var board = [];
-//     for(var h = 0; h < boardLength; h++){
-//         var row = generateRow(h);
-//         board.push(row[h]);
-//         }
-//     }
+    //     return board;
+    //     };
 
-//     // Array of 14x14 squares
-//     // var colors = ['color1','color2','color3','color4','color5','color6'];
-//     // var x_s = ['100', '150', '200', '250', '300', '350', '400', '450', '500', '550', '600', '650', '700','750'];
-//     // var y_s = ['100', '150', '200', '250', '300', '350', '400', '450', '500', '550', '600', '650', '700','750'];
-//     //         for(var w = 0; w < x_s.length; w++){
-//     //             for(var h = 0; h < y_s.length; h++){
-//     //                 board.push({
-//     //                     'color': colors[ranInt(6)-1],
-//     //                     'x':     x_s[w],
-//     //                     'y':     y_s[h],
-//     //                 });
-//     //             }
-//     //         }
+    //     // function displayBoard() {
 
-//     return board;
-//     };
+    //     //     for(var i=0;i<board.length;i++){
+    //     //         $canvas.append('<div class="box ' + board[i].color + ' ' + 'x' + board[i].x + ' ' + 'y' + board[i].y + '"></div>');
 
-//     // function displayBoard() {
+    //     //     };
+    //     // };
 
-//     //     for(var i=0;i<board.length;i++){
-//     //         $canvas.append('<div class="box ' + board[i].color + ' ' + 'x' + board[i].x + ' ' + 'y' + board[i].y + '"></div>');
+    //     // function generateAndDisplayBoard() {
+    //     //     console.log('fn called')
+    //     //     board = generateBoard();
+    //     //     displayBoard();
+    //     // }
 
-//     //     };
-//     // };
+    //     // $reset.on('click', generateAndDisplayBoard);
 
-//     // function generateAndDisplayBoard() {
-//     //     console.log('fn called')
-//     //     board = generateBoard();
-//     //     displayBoard();
-//     // }
 
-//     // $reset.on('click', generateAndDisplayBoard);
 
+    // // Button event
 
+    // function drench(color){
+    //     // Change all the drenched squares to clicked color
+    //     for(var i = 0; i< drenched.length; i++){
+    //         drenched[i].color = color;
+    //     };
+    //     // Check around all the drenched
+    //     // Add all same colored squares to drenched array
 
-// // Button event
+    //     capture();
 
-// function drench(color){
-//     // Change all the drenched squares to clicked color
-//     for(var i = 0; i< drenched.length; i++){
-//         drenched[i].color = color;
-//     };
-//     // Check around all the drenched
-//     // Add all same colored squares to drenched array
+    //     // Check if game is won
 
-//     capture();
+    //         // if yes, cheer and click to restart: generate and array of drenched
 
-//     // Check if game is won
+    //         // if no,Check if clicks are left
+    //             // if no, "you lose " and restart: generate and array of drenched
 
-//         // if yes, cheer and click to restart: generate and array of drenched
+    //     //(When game not win, clicks left, do nothing, wait for button -
+    //     // going back to the point of listening to button click)
 
-//         // if no,Check if clicks are left
-//             // if no, "you lose " and restart: generate and array of drenched
+    //     //(This will loop until win or lose and game will end)
 
-//     //(When game not win, clicks left, do nothing, wait for button -
-//     // going back to the point of listening to button click)
+    //     };
 
-//     //(This will loop until win or lose and game will end)
+    //     $c1.on('click',function(){
+    //         drench('color1');
+    //     });
 
-//     };
 
-//     $c1.on('click',function(){
-//         drench('color1');
-//     });
 
+    //     function capture(){
+    //         // check if all drenched elements have any surrounding elements to be marked as drenched
+    //         for(var i = 0; i< drenched.length; i++){
+    //             // 1. top
+    //             var topx = drenched[i].x;
+    //             var topy = drenched[i].y - 50;
 
+    // // board = [ro1arr, row2arr, row3arr]
+    // // row1arr = [{x,y,color}, {}]
 
-//     function capture(){
-//         // check if all drenched elements have any surrounding elements to be marked as drenched
-//         for(var i = 0; i< drenched.length; i++){
-//             // 1. top
-//             var topx = drenched[i].x;
-//             var topy = drenched[i].y - 50;
+    // // bottomRow = board[1]
+    // // bottom = botomrow[0]
 
-// // board = [ro1arr, row2arr, row3arr]
-// // row1arr = [{x,y,color}, {}]
+    // //             botomRow = rows[1]
+    // //             bottomElement = bottomRow[0]
 
-// // bottomRow = board[1]
-// // bottom = botomrow[0]
 
-// //             botomRow = rows[1]
-// //             bottomElement = bottomRow[0]
+    //             // WHAT COLOR HAS THE TOP ELEMENT?
 
+    //             // for(var z = 0; z<board.length; z++) {
+    //             //     if ()
+    //             // }
 
-//             // WHAT COLOR HAS THE TOP ELEMENT?
 
-//             // for(var z = 0; z<board.length; z++) {
-//             //     if ()
-//             // }
-
-
-//         };
-//     };
+    //         };
+    //     };
 
 
 
