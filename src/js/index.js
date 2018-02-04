@@ -1,24 +1,25 @@
 // Generate boards
     // Length and Width of board
-    var $canvas = $('#canvas');
-    var boardLength = 10;
-    var boardWidth =10;
-    var $reset = $('#reset');
-    var $c1 = $('#c1');
-    var $c2 = $('#c2');
-    var $c3 = $('#c3');
-    var $c4 = $('#c4');
-    var $c5 = $('#c5');
-    var $c6 = $('#c6');
+    // Game preparation:
+        var $canvas = $('#canvas');
+        var boardLength = 10;
+        var boardWidth =10;
+        var $reset = $('#reset');
+        var $c1 = $('#c1');
+        var $c2 = $('#c2');
+        var $c3 = $('#c3');
+        var $c4 = $('#c4');
+        var $c5 = $('#c5');
+        var $c6 = $('#c6');
 
-    var row =[];
-    var board = [];
-    generateAndDisplayBoard();
+        var row =[];
+        var board = [];
+        generateAndDisplayBoard();
 
     // Function to randomize colors
-    function ranInt(num){
-        return Math.floor((Math.random() * num)+1);
-    };
+        function ranInt(num){
+            return Math.floor((Math.random() * num)+1);
+        };
 
     function generateRow(givenh){
         var colors = ['color1','color2','color3','color4','color5','color6'];
@@ -29,6 +30,7 @@
                 'color': colors[ranInt(6)-1],
                 'x':     w*50,
                 'y':     h*50,
+                'captured':false
             });
         };
         return row;
@@ -39,16 +41,17 @@
             $canvas.append('<div class="box ' + row[i].color + ' ' + 'x' + row[i].x + ' ' + 'y' + row[i].y + '"></div>');
             };
     };
+    //A test function for row display
+        // function generateAndDisplayRow(givenrow){
+        //     console.log('fn called');
+        //     row = generateRow(givenrow);
+        //     displayRow(givenrow);
+        // };
 
-    // function generateAndDisplayRow(givenrow){
-    //     console.log('fn called');
-    //     row = generateRow(givenrow);
-    //     displayRow(givenrow);
-    // };
+        // $reset.on('click',generateAndDisplayRow);
 
-    // $reset.on('click',generateAndDisplayRow);
 
-    function generateBoard(){
+        function generateBoard(){
         board = [];
         for(var h = 0; h < boardLength; h++){
             row = generateRow(h);
@@ -68,13 +71,26 @@
         console.log('fn called');
         board = generateBoard();
         displayBoard();
+        board[0][0].captured = true;
 
     }
 
     $reset.on('click',generateAndDisplayBoard);
 
-    // Array of drenched
-        var drenched = [];
+    // Array of drenched, I keep this to check drenched.length, if equal
+    // to boardlength * boardwidth then game is won.
+        var drenched = initiateDrenched();
+
+        function initiateDrenched(){
+            var drenched = [];
+            drenched.push(board[0].[0]);
+        };
+
+        function displayDrenched(){
+            for(var i=0; i<drenched.length; i++){
+                $canvas.append('<div class="box ' + drenched[i].color + ' ' + 'x' + drenched[i].x + ' ' + 'y' + drenched[i].y + '"></div>');
+            }
+        };
 
         // Turn the first object of the first array in board to drenched
 
@@ -82,36 +98,58 @@
             console.log(clickedColor);
             var currentSquare = board[0].shift();
             currentSquare.color = clickedColor;
+            currentSquare.x = 0;
+            currentSquare.y = 0;
+            currentSquare.captured = true;
             drenched.push(currentSquare);
-            board[0].unshift(currentSquare);
-            displayBoard();
-        }
+            // board[0].unshift(currentSquare);
+        };
+
+        // Through out the whole board, check all the square, if captured is true
+        // then go through all 4 adjacent squares to it, if any has the same color
+        // assign captured to true.
+
+        // function seconddrench(clickedColor){
+        //     var top =
+        //     //check top
+        //     //check right
+        //     //check bottom
+        //     //check left
+
+
+        // };
+
+        function wholedrench(clickedColor){
+            firstdrench(clickedColor);
+            // seconddrench(clickedColor);
+            displayDrenched();
+        };
 
 
 
         $c1.on('click',function drench(clickedColor){
             clickedColor = $c1.html();
-            firstdrench(clickedColor);
+            wholedrench(clickedColor);
         });
         $c2.on('click',function drench(clickedColor){
             clickedColor = $c2.html();
-            firstdrench(clickedColor);
+            wholedrench(clickedColor);
         });
         $c3.on('click',function drench(clickedColor){
             clickedColor = $c3.html();
-            firstdrench(clickedColor);
+            wholedrench(clickedColor);
         });
         $c4.on('click',function drench(clickedColor){
             clickedColor = $c4.html();
-            firstdrench(clickedColor);
+            wholedrench(clickedColor);
         });
         $c5.on('click',function drench(clickedColor){
             clickedColor = $c5.html();
-            firstdrench(clickedColor);
+            wholedrench(clickedColor);
         });
         $c6.on('click',function drench(clickedColor){
             clickedColor = $c6.html();
-            firstdrench(clickedColor);
+            wholedrench(clickedColor);
         });
 
 
