@@ -12,15 +12,16 @@
         var $c5 = $('#c5');
         var $c6 = $('#c6');
         var $msg = $('#message');
-        var clicks = 30;
+        var clicks = 40;
 
         function resetGame(){
-            var clicks = 4;
-            var captures = 1;
             var row =[];
             var board = [];
             generateAndDisplayBoard();
             $msg.html(' ');
+            clicks = 40;
+            $('#clicksField').html('<h1>Clicks left: '+clicks+'</h1>');
+            var captures = 1;
         };
         resetGame();
 
@@ -73,14 +74,9 @@
         };
     };
     function generateAndDisplayBoard(){
-        console.log('fn called');
         board = generateBoard();
         displayBoard();
         board[0][0].captured = true;
-
-        console.log('board after reset')
-        console.log(board)
-
     }
     $reset.on('click',resetGame);
 
@@ -92,18 +88,11 @@
         //Going through each squares from 1,0 to 13,0
         for(var l = 1; l < boardLength; l++){
             currentSquare = board[l][0];
-
-            console.log('capture() for [' + l + '][0]')
-
-            console.log('curr color: ' + currentSquare.color)
-            console.log('clicked color: ' + clickedColor)
             if(
                 (currentSquare.color == clickedColor)
                 &&( board[l-1][0].captured == true)
             )
                 {
-
-                console.log('marking as caputured: [' + l + '][0]')
                 currentSquare.captured = true;
                 }
 
@@ -171,17 +160,12 @@
     };
 
 function wholedrench(clickedColor){
-    console.log('board before capture')
-    console.log(board)
     capture(clickedColor);
-    console.log('board after capture')
-    console.log(board)
     paint(clickedColor);
     displayBoard();
     checkIfWon();
     clicks -=1;
     $('#clicksField').html('<h1>Clicks left: '+clicks+'</h1>');
-    console.log('Clicks left: ' + clicks);
     if (clicks == 0){
         $msg.append('<div id="lose"><h1>Oops! You lost!</h1><h1>Click here to play again.</h1></div>');
     };
@@ -191,7 +175,6 @@ function wholedrench(clickedColor){
 
 $c1.on('click',function (clickedColor){
     clickedColor = $c1.html();
-    console.log(clickedColor)
     wholedrench(clickedColor);
 });
 $c2.on('click',function (clickedColor){
