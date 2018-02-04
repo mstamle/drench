@@ -70,6 +70,9 @@
         displayBoard();
         board[0][0].captured = true;
 
+        console.log('board after reset')
+        console.log(board)
+
     }
     $reset.on('click',generateAndDisplayBoard);
 
@@ -79,22 +82,30 @@
 
     function capture(clickedColor){
         //Going through each squares from 1,0 to 13,0
-        for(var l = 1; w < boardLength; l++){
+        for(var l = 1; l < boardLength; l++){
             currentSquare = board[l][0];
+
+            console.log('capture() for [' + l + '][0]')
+
+            console.log('curr color: ' + currentSquare.color)
+            console.log('clicked color: ' + clickedColor)
             if(
-                (currentSquare.color === board[0][0].color)
+                (currentSquare.color == clickedColor)
                 &&( board[l-1][0].captured == true)
             )
                 {
+
+                console.log('marking as caputured: [' + l + '][0]')
                 currentSquare.captured = true;
                 }
+
         }
         //Going through each squares from 0,1 to 0,13
         for(var w = 1; w < boardWidth; w++){
             currentSquare = board[0][w];
             if(
                 (currentSquare.color === board[0][0].color)
-                &&( board[l][w-1].captured == true)
+                &&( board[0][w-1].captured == true)
             )
                 {
                 currentSquare.captured = true;
@@ -125,7 +136,7 @@
             //Inside row going through each object
             for(var w = 0; w < boardWidth; w++){
                 currentSquare = board[l][w];
-                if(currentSquare.captured = true){
+                if(currentSquare.captured == true){
                     currentSquare.color = clickedColor;
                 }
 
@@ -134,7 +145,13 @@
     };
 
 function wholedrench(clickedColor){
-    capture();
+    console.log('board before capture')
+    console.log(board)
+
+
+    capture(clickedColor);
+    console.log('board after capture')
+    console.log(board)
     paint(clickedColor);
     displayBoard();
     // checkIfWon();
@@ -143,27 +160,28 @@ function wholedrench(clickedColor){
 
 
 
-$c1.on('click',function drench(clickedColor){
+$c1.on('click',function (clickedColor){
     clickedColor = $c1.html();
+    console.log(clickedColor)
     wholedrench(clickedColor);
 });
-$c2.on('click',function drench(clickedColor){
+$c2.on('click',function (clickedColor){
     clickedColor = $c2.html();
     wholedrench(clickedColor);
 });
-$c3.on('click',function drench(clickedColor){
+$c3.on('click',function (clickedColor){
     clickedColor = $c3.html();
     wholedrench(clickedColor);
 });
-$c4.on('click',function drench(clickedColor){
+$c4.on('click',function (clickedColor){
     clickedColor = $c4.html();
     wholedrench(clickedColor);
 });
-$c5.on('click',function drench(clickedColor){
+$c5.on('click',function (clickedColor){
     clickedColor = $c5.html();
     wholedrench(clickedColor);
 });
-$c6.on('click',function drench(clickedColor){
+$c6.on('click',function (clickedColor){
     clickedColor = $c6.html();
     wholedrench(clickedColor);
 });
