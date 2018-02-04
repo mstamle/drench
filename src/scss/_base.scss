@@ -8,8 +8,7 @@ h1 {
     margin: .4em;
 }
 .box {
-    display: block;
-    position: absolute;
+    display: flex;
     height: 50px;
     width: 50px;
     border: white solid 2px;
@@ -52,7 +51,7 @@ h1 {
 }
 
 #canvas {
-    display: block;
+    display: flex;
     position: absolute;
     left: 100px;
     top: 100px;
