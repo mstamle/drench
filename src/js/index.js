@@ -180,6 +180,7 @@ function wholedrench(clickedColor){
     displayBoard();
     checkIfWon();
     clicks -=1;
+    $('#clicksField').html('<h1>Clicks left: '+clicks+'</h1>');
     console.log('Clicks left: ' + clicks);
     if (clicks == 0){
         $msg.append('<div id="lose"><h1>Oops! You lost!</h1><h1>Click here to play again.</h1></div>');
