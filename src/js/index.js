@@ -2,8 +2,8 @@
     // Length and Width of board
     // Game preparation:
         var $canvas = $('#canvas');
-        var boardLength = 5;
-        var boardWidth =5;
+        var boardLength = 14;
+        var boardWidth =14;
         var $reset = $('#reset');
         var $c1 = $('#c1');
         var $c2 = $('#c2');
@@ -12,9 +12,10 @@
         var $c5 = $('#c5');
         var $c6 = $('#c6');
         var $msg = $('#message');
+        var clicks = 30;
 
         function resetGame(){
-            var clicks = 30;
+            var clicks = 4;
             var captures = 1;
             var row =[];
             var board = [];
@@ -81,7 +82,7 @@
         console.log(board)
 
     }
-    $reset.on('click',generateAndDisplayBoard);
+    $reset.on('click',resetGame);
 
     // Through out the whole board, check all the square, if captured is true
     // then go through all 4 adjacent squares to it, if any has the same color
@@ -172,15 +173,17 @@
 function wholedrench(clickedColor){
     console.log('board before capture')
     console.log(board)
-
-
     capture(clickedColor);
     console.log('board after capture')
     console.log(board)
     paint(clickedColor);
     displayBoard();
     checkIfWon();
-    // checkClicks();
+    clicks -=1;
+    console.log('Clicks left: ' + clicks);
+    if (clicks == 0){
+        $msg.append('<div id="lose"><h1>Oops! You lost!</h1><h1>Click here to play again.</h1></div>');
+    };
 };
 
 
