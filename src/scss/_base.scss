@@ -67,6 +67,28 @@ button {
     background-color: transparent;
 }
 
+#win {
+    display: block;
+    position: absolute;
+    left: 200px;
+    top: 500px;
+    width: 800px;
+    height: 250px;
+    background-color: #F16745;
+
+}
+
+#lose {
+    display: block;
+    position: absolute;
+    left: 200px;
+    top: 500px;
+    width: 800px;
+    height: 250px;
+    background-color: #404040;
+
+}
+
 .color1 {
     background-color: #F16745;
 }

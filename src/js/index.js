@@ -2,8 +2,8 @@
     // Length and Width of board
     // Game preparation:
         var $canvas = $('#canvas');
-        var boardLength = 4;
-        var boardWidth =4;
+        var boardLength = 5;
+        var boardWidth =5;
         var $reset = $('#reset');
         var $c1 = $('#c1');
         var $c2 = $('#c2');
@@ -11,10 +11,17 @@
         var $c4 = $('#c4');
         var $c5 = $('#c5');
         var $c6 = $('#c6');
+        var $msg = $('#message');
 
-        var row =[];
-        var board = [];
-        generateAndDisplayBoard();
+        function resetGame(){
+            var clicks = 30;
+            var captures = 1;
+            var row =[];
+            var board = [];
+            generateAndDisplayBoard();
+            $msg.html(' ');
+        };
+        resetGame();
 
     // Function to randomize colors
         function ranInt(num){
@@ -125,10 +132,12 @@
                 )
             )
                 {
+
                 currentSquare.captured = true;
-                }
-            }
-        }
+
+                };
+            };
+        };
     };
 
     function paint(clickedColor){
@@ -144,6 +153,22 @@
         }
     };
 
+    function checkIfWon(){
+        var captures = 1;
+        for(var l = 0; l < boardLength; l++){
+            //Inside row going through each object
+            for(var w = 0; w < boardWidth; w++){
+                currentSquare = board[l][w];
+                if(currentSquare.captured == true){
+                    captures += 1 ;
+                };
+            };
+        };
+        if (captures == (boardLength * boardWidth)){
+            $msg.append('<div id="win"><h1>Congrats! You won!</h1><h1>Click here to play again.</h1></div>');
+        };
+    };
+
 function wholedrench(clickedColor){
     console.log('board before capture')
     console.log(board)
@@ -154,7 +179,7 @@ function wholedrench(clickedColor){
     console.log(board)
     paint(clickedColor);
     displayBoard();
-    // checkIfWon();
+    checkIfWon();
     // checkClicks();
 };
 
@@ -185,6 +210,9 @@ $c6.on('click',function (clickedColor){
     clickedColor = $c6.html();
     wholedrench(clickedColor);
 });
+$msg.on('click',resetGame);
+
+
 
 
 
