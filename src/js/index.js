@@ -89,7 +89,7 @@
         for(var l = 1; l < boardLength; l++){
             currentSquare = board[l][0];
             if(
-                (currentSquare.color == clickedColor)
+                (currentSquare.color == board[0][0].color)
                 &&( board[l-1][0].captured == true)
             )
                 {
